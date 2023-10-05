@@ -25,3 +25,4 @@ _temp
 
 hw1/data/*
 !hw1/data/TSLA_first_two_hours_HW1.csv
+!TSLA_TRADE.csv
