@@ -1,0 +1,27 @@
+# VS Code
+.vscode
+
+# Python
+__pycache__
+
+# R
+*.Rproj
+*.Rproj.*
+.RData
+.RHistory
+
+# MacOS
+.DS_Store
+._DS_Store
+
+# Secret configuration
+secret.py
+
+# Temporary sandbox
+temp/*
+
+_materials
+_temp
+
+hw1/data/*
+!hw1/data/TSLA_first_two_hours_HW1.csv
