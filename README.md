@@ -4,3 +4,6 @@
 
 *hw1*
 - Computing optimal share sales schedule given moving-average / market memory liquidity impact model.
+
+*hw2*
+- Solving unconstrained Markowitz portfolio optimization problem.
