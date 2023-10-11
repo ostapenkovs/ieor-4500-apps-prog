@@ -20,9 +20,14 @@ secret.py
 # Temporary sandbox
 temp/*
 
-_materials
 _temp
+materials
 
 hw1/data/*
 !hw1/data/TSLA_first_two_hours_HW1.csv
 !TSLA_TRADE.csv
+
+hw2/data/*
+!hw2/data/AMZN.csv
+!hw2/data/NFLX.csv
+!hw2/data/TSLA.csv
