@@ -7,3 +7,6 @@
 
 *hw2*
 - Solving unconstrained Markowitz portfolio optimization problem.
+
+*hw3*
+- Identifying polluted data via dimension reduction and clustering methods.
