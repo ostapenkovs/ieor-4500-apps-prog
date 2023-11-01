@@ -31,3 +31,6 @@ hw2/data/*
 !hw2/data/AMZN.csv
 !hw2/data/NFLX.csv
 !hw2/data/TSLA.csv
+
+hw3/data/*
+!hw3/data/polluted_deltas_new.csv
