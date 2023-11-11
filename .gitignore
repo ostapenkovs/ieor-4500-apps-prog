@@ -34,3 +34,4 @@ hw2/data/*
 
 hw3/data/*
 !hw3/data/polluted_deltas_new.csv
+!hw3/data/burj_khalifa.jpg
