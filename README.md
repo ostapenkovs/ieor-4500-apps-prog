@@ -10,3 +10,6 @@
 
 *hw3*
 - Identifying polluted data via dimension reduction and clustering methods.
+
+*hw4*
+- Constrained portfolio optimization problem with projected gradients.
