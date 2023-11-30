@@ -12,4 +12,4 @@
 - Identifying polluted data via dimension reduction and clustering methods.
 
 *hw4*
-- Constrained portfolio optimization problem with projected gradients.
+- Two constrained portfolio optimization problems using gradient clipping and a barrier method.
