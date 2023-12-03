@@ -13,3 +13,6 @@
 
 *hw4*
 - Two constrained portfolio optimization problems using gradient clipping and a barrier method.
+
+*hw5*
+- Pairs trading algorithm (in progress).
