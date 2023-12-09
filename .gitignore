@@ -19,13 +19,14 @@ secret.py
 
 # Temporary sandbox
 temp/*
-
 _temp
+
+# Project guidelines, references, etc
 materials
 
+# Only raw data, no processed
 hw1/data/*
 !hw1/data/TSLA_first_two_hours_HW1.csv
-!TSLA_TRADE.csv
 
 hw2/data/*
 !hw2/data/AMZN.csv
@@ -35,3 +36,18 @@ hw2/data/*
 hw3/data/*
 !hw3/data/polluted_deltas_new.csv
 !hw3/data/burj_khalifa.jpg
+
+hw4/data/*
+!hw4/data/ABR.csv
+!hw4/data/AMZN.csv
+!hw4/data/GS.csv
+!hw4/data/NFLX.csv
+!hw4/data/NIO.csv
+!hw4/data/NVDA.csv
+!hw4/data/TSLA.csv
+!hw4/data/UBS.csv
+!barrier.jpg
+
+hw5/data/*
+!hw5/data/closeRussell1000.csv
+!hw5/data/closeWilshire5000.csv
