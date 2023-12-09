@@ -20,6 +20,7 @@ secret.py
 # Temporary sandbox
 temp/*
 _temp
+temp.py
 
 # Project guidelines, references, etc
 materials
