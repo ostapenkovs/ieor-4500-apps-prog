@@ -45,6 +45,7 @@ def gradient_descent(x_0: np.ndarray, theta: float, pi: float, alpha: float, bet
     # parameter for getting batches and process pool initialization
     n = delta_centered.shape[0]
     num_workers = mp.cpu_count()
+    print(f"Working with {num_workers} workers")
     pool = mp.Pool(num_workers)
     
     for _ in tqdm(range(num_iter), leave=True, desc='Iterations'):
@@ -70,8 +71,9 @@ def gradient_descent(x_0: np.ndarray, theta: float, pi: float, alpha: float, bet
         f_new = f(x=x, theta=theta, pi=pi, delta_bar=delta_bar, delta_centered=delta_centered)
         hist.append(f_new)
         # checking convergence
-        # (another way to check convergence) if f_val - f_new < tolerance:
-        if np.all( np.abs(x) < tolerance ):
+        # (another way to check convergence) 
+        if f_val - f_new < tolerance:
+        #if np.all( np.abs(x) < tolerance ):
             converged = True
             break
         # new function value is the old function value in the next iteration
@@ -103,9 +105,9 @@ def main() -> None:
     p = data['delta_centered'].shape[1]
     converged, x, hist = gradient_descent(
             x_0=np.random.uniform(-1, 1, p), #np.zeros(p)
-            theta=10, pi=2, alpha=1e-1, beta=0.9,
+            theta=10, pi=2, alpha=1e-2, beta=0.9,
             # 128 is the fastest empirically tested batch size
-            num_iter=50, batch_size=128, tolerance=1e-6,
+            num_iter=50, batch_size=256, tolerance=1e-6,
             **data
         )
     
@@ -116,10 +118,23 @@ def main() -> None:
     print(f'Did we converge? {converged}. Final function value: {hist[-1]}')
 
     fig, ax = plt.subplots(1, 2, figsize=(12, 4))
-    sns.lineplot(hist, ax=ax[0])
+    
+    # For the lineplot, create an array for the x-axis (e.g., iterations)
+    iterations = np.arange(len(hist))
+    sns.lineplot(x=iterations, y=hist, ax=ax[0])
+    ax[0].set_title("Function Value Over Iterations")
+    ax[0].set_xlabel("Iteration")
+    ax[0].set_ylabel("Function Value")
+
+    # For the histogram
     sns.histplot(x, ax=ax[1])
+    ax[1].set_title("Histogram of x Values")
+    ax[1].set_xlabel("x Value")
+    ax[1].set_ylabel("Frequency")
+
     plt.tight_layout()
     plt.show()
+
 
     with open(f'{data_folder}/{index_name}_pair_names.pkl', 'rb') as f:
         pair_names = np.array( pickle.load(f) )
