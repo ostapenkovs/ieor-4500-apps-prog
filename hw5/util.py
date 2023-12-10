@@ -102,9 +102,9 @@ def main() -> None:
 
     converged, x, hist = gradient_descent(
             x_0=np.random.uniform(-1, 1, p),
-            theta=10, pi=2, alpha=1e-1, beta=0.9,
+            theta=10, pi=2, alpha=1e-1, beta=0.95,
             # 128 is the fastest empirically tested batch size
-            num_iter=100, batch_size=128, tolerance=1e-8,
+            num_iter=200, batch_size=128, tolerance=1e-8,
             num_workers=num_workers,
             **data
         )
@@ -139,7 +139,8 @@ def main() -> None:
     
     cutoff = 0.75
     mask = np.abs(x) > cutoff
-    print( pair_names[mask] )
+    # print( pair_names[mask] )
+    print(f'Num. pairs passing the cutoff: {sum(mask)}')
     #########################################
 
 if __name__ == '__main__':
