@@ -38,15 +38,15 @@ def gradient_descent(x_0: np.ndarray, theta: float, pi: float, alpha: float, bet
     # initial parameters to start gradient descent
     converged = False
     x = y = x_0
-    # evaluating function at initial value - seeing if we can minimize this!
-    f_val = f(x=x_0, theta=theta, pi=pi, delta_bar=delta_bar, delta_centered=delta_centered)
-    hist = [f_val]
+    hist = list()
     
     # parameter for getting batches and process pool initialization
     n = delta_centered.shape[0]
     pool = mp.Pool(num_workers)
     
     for _ in tqdm(range(num_iter), leave=True, desc='Iterations'):
+        f_curr = f(x=x, theta=theta, pi=pi, delta_bar=delta_bar, delta_centered=delta_centered)
+        hist.append( f_curr )
         # computing gradient IN PARALLEL
         frozen_grad = partial(g, x, theta, pi, delta_bar)
         grad = pool.map(
@@ -55,26 +55,22 @@ def gradient_descent(x_0: np.ndarray, theta: float, pi: float, alpha: float, bet
         )
         # averaging the gradient from all the processes
         grad = sum(grad) / len(grad)
+        # checking convergence right here
+        norm = np.linalg.norm(grad)
+        if norm < tolerance:
+            converged = True
+            break
+        # if we didn't converge, we take a step
         # norming gradient: why?
         #   1) we are able to control the step-size purely with beta and 
         #       alpha without being influenced by varying magnitude of gradient
         #   2) we are able to eliminate "slow crawling" gradient descent and
         #       push out of flat regions of the surface faster
-        grad /= np.linalg.norm(grad)
+        grad /= norm
         # computing next step using momentum
         y = beta*y + (1-beta)*grad
         # clipping the gradient to enforce the problem's constraint
         x = np.clip(x - alpha*y, -1, 1)
-        # evaluating new function value
-        f_new = f(x=x, theta=theta, pi=pi, delta_bar=delta_bar, delta_centered=delta_centered)
-        hist.append(f_new)
-        # checking convergence
-        if f_val - f_new < tolerance:
-        # if np.all( np.abs(x) < tolerance ):
-            converged = True
-            break
-        # new function value is the old function value in the next iteration
-        f_val = f_new
     
     pool.close()
     pool.join()
@@ -105,10 +101,10 @@ def main() -> None:
     print(f'Using {num_workers} workers.')
 
     converged, x, hist = gradient_descent(
-            x_0=np.random.uniform(-1, 1, p), #np.zeros(p)
+            x_0=np.random.uniform(-1, 1, p),
             theta=10, pi=2, alpha=1e-1, beta=0.9,
             # 128 is the fastest empirically tested batch size
-            num_iter=50, batch_size=128, tolerance=1e-6,
+            num_iter=100, batch_size=128, tolerance=1e-8,
             num_workers=num_workers,
             **data
         )
