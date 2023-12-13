@@ -52,3 +52,4 @@ hw4/data/*
 hw5/data/*
 !hw5/data/closeRussell1000.csv
 !hw5/data/closeWilshire5000.csv
+!hw5/data/pears*.png

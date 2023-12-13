@@ -102,9 +102,9 @@ def main() -> None:
 
     converged, x, hist = gradient_descent(
             x_0=np.random.uniform(-1, 1, p),
-            theta=10, pi=2, alpha=1e-1, beta=0.95,
+            theta=1e-4, pi=2, alpha=1e-3, beta=0.90,
             # 128 is the fastest empirically tested batch size
-            num_iter=200, batch_size=128, tolerance=1e-8,
+            num_iter=300, batch_size=128, tolerance=1e-8,
             num_workers=num_workers,
             **data
         )
@@ -113,11 +113,14 @@ def main() -> None:
     #########################################
 
     ### INSPECTING / PLOTTING THE RESULTS ###
-    print(f'Did we converge? {converged}. Final function value: {hist[-1]}')
+    temp = f'Did we converge: {converged}. Final function value: {hist[-1]}.\n'
+    print(temp)
+    with open('./data/log.txt', 'w') as f:
+        f.write(temp)
 
     fig, ax = plt.subplots(1, 2, figsize=(12, 4))
     
-    # For the lineplot, create an array for the x-axis (e.g., iterations)
+    # For the lineplot, create an array for the x-axis (i.e., iterations)
     iterations = np.arange(len(hist))
     sns.lineplot(x=iterations, y=hist, ax=ax[0])
     ax[0].set_title('Function Value Over Iterations')
@@ -138,9 +141,10 @@ def main() -> None:
         pair_names = np.array( pickle.load(f) )
     
     cutoff = 0.75
-    mask = np.abs(x) > cutoff
-    # print( pair_names[mask] )
-    print(f'Num. pairs passing the cutoff: {sum(mask)}')
+    with open('./data/log.txt', 'a') as f:
+        for pos, pair in zip(x, pair_names):
+            if abs(pos) > cutoff:
+                f.write(f'{pair}\t{pos}\t\n')
     #########################################
 
 if __name__ == '__main__':
