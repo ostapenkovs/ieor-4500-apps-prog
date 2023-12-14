@@ -1,5 +1,4 @@
 # Optimal schedule algorithm given market impact model.
-# Fastest runtime as of 10.03.2023.
 
 import numpy as np
 
