@@ -139,6 +139,8 @@ def main() -> None:
     plt.tight_layout()
     plt.show()
 
+    fig.savefig('./data/gradient_descent_results.png', bbox_inches='tight', dpi=300)
+
     with open(f'{data_folder}/{index_name}_pair_names.pkl', 'rb') as f:
         pair_names = np.array( pickle.load(f) )
     
