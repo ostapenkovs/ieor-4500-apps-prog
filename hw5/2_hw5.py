@@ -1,5 +1,6 @@
 # Multiprocessed SGD for our pairs-trading problem.
 
+from typing import Generator
 import sys
 import numpy as np
 np.random.seed(1)
@@ -12,7 +13,7 @@ import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def get_batches(n: int, batch_size: int) -> np.ndarray:
+def get_batches(n: int, batch_size: int) -> Generator:
     '''Get random batch of indices of size batch_size.'''
     k = n // batch_size
     # shuffle the indices
@@ -138,6 +139,8 @@ def main() -> None:
 
     plt.tight_layout()
     plt.show()
+
+    fig.savefig('./data/gradient_descent_results.png', bbox_inches='tight', dpi=300)
 
     with open(f'{data_folder}/{index_name}_pair_names.pkl', 'rb') as f:
         pair_names = np.array( pickle.load(f) )
