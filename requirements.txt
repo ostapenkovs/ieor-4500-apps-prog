@@ -1,0 +1,9 @@
+tqdm
+scipy
+numpy
+pandas
+scikit-learn
+umap-learn
+hdbscan
+matplotlib
+seaborn
